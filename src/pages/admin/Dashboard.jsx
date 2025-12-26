@@ -41,9 +41,9 @@ export default function Dashboard() {
             Create Election
           </DashboardButton>
 
-          <DashboardButton to="/admin/result">
+          {/* <DashboardButton to="/admin/result">
             See Result
-          </DashboardButton>
+          </DashboardButton> */}
 
         </div>
       </div>
