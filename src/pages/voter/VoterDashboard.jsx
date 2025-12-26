@@ -27,7 +27,7 @@
 //     const fetchDashboardData = async () => {
 //         try {
 //             setLoading(true);
-            
+
 //             // Fetch voter profile
 //             const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
 //                 headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
@@ -35,10 +35,10 @@
 
 //             if (profileRes.data.success) {
 //                 setVoter(profileRes.data.voter);
-                
+
 //                 // Store voting status
 //                 const votingStatus = profileRes.data.votingStatus;
-                
+
 //                 // If voting is open and voter hasn't voted, fetch candidates
 //                 if (votingStatus.votingOpen && !votingStatus.hasVoted) {
 //                     const candidatesRes = await axios.get("http://localhost:5000/api/voter/candidates");
@@ -46,7 +46,7 @@
 //                         setCandidates(candidatesRes.data.candidates);
 //                     }
 //                 }
-                
+
 //                 // If election is finished, fetch results
 //                 if (votingStatus.electionFinished) {
 //                     const resultsRes = await axios.get("http://localhost:5000/api/voter/results");
@@ -87,10 +87,10 @@
 
 //             if (response.data.success) {
 //                 toast.success("Vote submitted successfully!");
-                
+
 //                 // Refresh dashboard
 //                 fetchDashboardData();
-                
+
 //                 // Clear selection
 //                 setSelectedCandidate(null);
 //                 setCandidates([]);
@@ -120,7 +120,7 @@
 //     return (
 //         <div className="min-h-screen bg-gray-50">
 //             <ToastContainer position="top-right" autoClose={3000} />
-            
+
 //             {/* Header */}
 //             <header className="bg-white shadow">
 //                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -426,10 +426,10 @@
 //         try {
 //             setLoading(true);
 //             const token = localStorage.getItem("voterToken");
-            
+
 //             // 1. Fetch election status directly from elections collection
 //             const statusRes = await axios.get("http://localhost:5000/api/election/status");
-            
+
 //             if (statusRes.data.success) {
 //                 const electionData = statusRes.data.election || {};
 //                 setElectionStatus({
@@ -445,7 +445,7 @@
 //                 if (profileRes.data.success) {
 //                     setVoter(profileRes.data.voter);
 //                     const hasVoted = profileRes.data.voter?.hasVoted || false;
-                    
+
 //                     // 3. If voting is active (Started), fetch approved candidates
 //                     if (electionData.votingStatus === "Started" && !hasVoted) {
 //                         const candidatesRes = await axios.get("http://localhost:5000/api/voter/candidates");
@@ -453,7 +453,7 @@
 //                             setCandidates(candidatesRes.data.candidates || []);
 //                         }
 //                     }
-                    
+
 //                     // 4. If voting has ended (Ended), fetch results
 //                     if (electionData.votingStatus === "Ended") {
 //                         const resultsRes = await axios.get("http://localhost:5000/api/voter/results", {
@@ -505,10 +505,10 @@
 
 //             if (response.data.success) {
 //                 toast.success("Vote submitted successfully!");
-                
+
 //                 // Refresh dashboard data
 //                 fetchDashboardData();
-                
+
 //                 // Clear selection
 //                 setSelectedCandidate(null);
 //                 setCandidates([]);
@@ -544,7 +544,7 @@
 //     return (
 //         <div className="min-h-screen bg-gray-50">
 //             <ToastContainer position="top-right" autoClose={3000} />
-            
+
 //             {/* Header */}
 //             <header className="bg-white shadow">
 //                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -950,138 +950,357 @@
 // }
 
 
+
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+
+// export default function VoterDashboard() {
+//     const navigate = useNavigate();
+
+//     const [voter, setVoter] = useState(null);
+//     const [votingStatus, setVotingStatus] = useState("NOT_STARTED");
+//     const [candidates, setCandidates] = useState([]);
+//     const [selectedCandidate, setSelectedCandidate] = useState(null);
+//     const [loading, setLoading] = useState(true);
+//     const [submitting, setSubmitting] = useState(false);
+
+//     useEffect(() => {
+//         const token = localStorage.getItem("voterToken");
+//         if (!token) return navigate("/voter/login");
+//         loadDashboard();
+//     }, []);
+
+//     const loadDashboard = async () => {
+//         try {
+//             setLoading(true);
+
+//             const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+//                 headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
+//             });
+
+//             setVoter(profileRes.data.voter);
+
+//             const statusRes = await axios.get("http://localhost:5000/election/status");
+//             setVotingStatus(statusRes.data.votingStatus);
+
+//             if (statusRes.data.votingStatus === "Started") {
+//                 const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+//                 const approved = nominationsRes.data.filter(n => n.status === "Approved");
+//                 setCandidates(approved);
+//             }
+
+//         } catch (err) {
+//             toast.error("Session expired");
+//             navigate("/voter/login");
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     const submitVote = async () => {
+//         if (!selectedCandidate) return toast.error("Select a candidate first");
+
+//         if (!confirm(`Confirm your vote for ${selectedCandidate.name}?`)) return;
+
+//         try {
+//             setSubmitting(true);
+
+//             await axios.post("http://localhost:5000/api/voter/vote", {
+//                 voterId: voter.voterId,
+//                 candidateId: selectedCandidate._id
+//             });
+
+//             toast.success("Vote submitted successfully!");
+//             setSelectedCandidate(null);
+//             loadDashboard();
+
+//         } catch {
+//             toast.error("Vote failed");
+//         } finally {
+//             setSubmitting(false);
+//         }
+//     };
+
+//     if (loading) return <div className="h-screen flex items-center justify-center">Loading...</div>;
+
+//     return (
+//         <div className="min-h-screen bg-gray-100">
+//             <ToastContainer />
+
+//             <header className="bg-white p-4 shadow flex justify-between">
+//                 <div>
+//                     <h1 className="text-xl font-bold">Voter Dashboard</h1>
+//                     <p>Welcome, {voter.name}</p>
+//                 </div>
+//                 <button onClick={() => { localStorage.clear(); navigate("/voter/login"); }}
+//                     className="bg-red-600 text-white px-4 py-2 rounded">
+//                     Logout
+//                 </button>
+//             </header>
+
+//             <main className="max-w-5xl mx-auto p-8">
+
+//                 {/* STATUS DISPLAY */}
+//                 {votingStatus !== "Started" && (
+//                     <div className="bg-white p-10 rounded shadow text-center text-xl">
+//                         {votingStatus === "NOT_STARTED" && "🕒 Voting has not started yet"}
+//                         {votingStatus === "Ended" && "🛑 Voting has ended"}
+//                     </div>
+//                 )}
+
+//                 {/* CIRCLE VOTING UI */}
+//                 {votingStatus === "Started" && (
+//                     <div className="bg-white p-10 rounded shadow">
+//                         <h2 className="text-2xl font-bold mb-6 text-center">Cast Your Vote</h2>
+
+//                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
+//                             {candidates.map(c => (
+//                                 <div key={c._id} onClick={() => setSelectedCandidate(c)}
+//                                     className="cursor-pointer flex flex-col items-center">
+
+//                                     <div className={`w-28 h-28 rounded-full border-4 flex items-center justify-center text-center
+//                                         ${selectedCandidate?._id === c._id
+//                                             ? "border-blue-600 bg-blue-100"
+//                                             : "border-gray-400 hover:border-blue-400"}`}>
+
+//                                         <span className="font-bold">{c.name}</span>
+//                                     </div>
+
+//                                     <p className="mt-2 text-sm text-gray-600">{c.position}</p>
+//                                 </div>
+//                             ))}
+//                         </div>
+
+//                         {selectedCandidate && (
+//                             <div className="text-center mt-10">
+//                                 <button
+//                                     onClick={submitVote}
+//                                     disabled={submitting}
+//                                     className="bg-blue-600 text-white px-10 py-3 rounded text-lg">
+//                                     {submitting ? "Submitting..." : "Confirm Vote"}
+//                                 </button>
+//                             </div>
+//                         )}
+//                     </div>
+//                 )}
+
+//             </main>
+//         </div>
+//     );
+// }
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function VoterDashboard() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [voter, setVoter] = useState(null);
-  const [candidates, setCandidates] = useState([]);
-  const [electionStatus, setElectionStatus] = useState("NOT_STARTED");
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
+    const [voter, setVoter] = useState(null);
+    const [votingStatus, setVotingStatus] = useState("NOT_STARTED");
+    const [candidates, setCandidates] = useState([]);
+    const [selectedCandidate, setSelectedCandidate] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
+    //update 
+    const [results, setResults] = useState([]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("voterToken");
-    if (!token) return navigate("/voter/login");
-    initDashboard();
-  }, []);
 
-  async function initDashboard() {
-    try {
-      setLoading(true);
+    useEffect(() => {
+        const token = localStorage.getItem("voterToken");
+        if (!token) return navigate("/voter/login");
+        loadDashboard();
+    }, []);
 
-      const [profileRes, electionRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/voter/profile", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
-        }),
-        axios.get("http://localhost:5000/election/status")
-      ]);
+    // const loadDashboard = async () => {
+    //     try {
+    //         setLoading(true);
 
-      setVoter(profileRes.data.voter);
-      setElectionStatus(electionRes.votingStatus);
+    //         const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+    //             headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
+    //         });
 
-      if (electionRes.votingStatus === "Started") {
-        const cRes = await axios.get("http://localhost:5000/api/voter/candidates");
-        setCandidates(cRes.name);
-      }
+    //         setVoter(profileRes.data.voter);
 
-    } catch {
-      toast.error("Session expired");
-      navigate("/voter/login");
-    } finally {
-      setLoading(false);
-    }
-  }
+    //         const statusRes = await axios.get("http://localhost:5000/election/status");
+    //         setVotingStatus(statusRes.data.votingStatus);
 
-  async function handleVote() {
-    if (!selectedCandidate) return toast.error("Please select a candidate");
+    //         if (statusRes.data.votingStatus === "Started") {
+    //             const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+    //             const approved = nominationsRes.data.filter(n => n.status === "Approved");
+    //             setCandidates(approved);
+    //         }
 
-    if (!window.confirm(`Confirm vote for ${selectedCandidate.name}?`)) return;
+    //     } catch {
+    //         toast.error("Session expired");
+    //         navigate("/voter/login");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
-    try {
-      setSubmitting(true);
+    const loadDashboard = async () => {
+        try {
+            setLoading(true);
 
-      await axios.post("http://localhost:5000/api/voter/vote", {
-        voterId: voter.voterId,
-        nominationId: selectedCandidate.nominationId
-      });
+            const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+                headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
+            });
 
-      toast.success("Vote submitted successfully");
-      setSelectedCandidate(null);
-      initDashboard();
+            setVoter(profileRes.data.voter);
 
-    } catch {
-      toast.error("Vote submission failed");
-    } finally {
-      setSubmitting(false);
-    }
-  }
+            const statusRes = await axios.get("http://localhost:5000/election/status");
+            const status = statusRes.data.votingStatus;
+            setVotingStatus(status);
 
-  if (loading) return <div className="h-screen flex items-center justify-center text-xl">Loading...</div>;
+            if (status === "Started") {
+                const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+                const approved = nominationsRes.data.filter(n => n.status === "Approved");
+                setCandidates(approved);
+            }
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <ToastContainer />
+            if (status === "Ended") {
+                const resultRes = await axios.get("http://localhost:5000/admin/nominations");
+                const approved = resultRes.data.filter(n => n.status === "Approved");
+                const sorted = approved.sort((a, b) => b.votes - a.votes);
+                setResults(sorted);
+            }
 
-      {/* Header */}
-      <div className="bg-white p-4 shadow rounded flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold">Voter Dashboard</h1>
-          <p className="text-gray-600">{voter?.name}</p>
+        } catch {
+            toast.error("Session expired");
+            navigate("/voter/login");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const submitVote = async () => {
+        if (!selectedCandidate) return toast.error("Select a candidate first");
+
+        if (!window.confirm(`Confirm your vote for ${selectedCandidate.name}?`)) return;
+
+        try {
+            setSubmitting(true);
+
+            await axios.patch("http://localhost:5000/api/vote", {
+                voterId: voter.voterId,
+                nominationId: selectedCandidate.nominationId
+            });
+
+            toast.success("Vote submitted successfully!");
+            setSelectedCandidate(null);
+            loadDashboard();
+
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Vote failed");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    if (loading) return <div className="h-screen flex items-center justify-center">Loading...</div>;
+
+    return (
+        <div className="min-h-screen bg-gray-100">
+            <ToastContainer />
+
+            <header className="bg-white p-4 shadow flex justify-between">
+                <div>
+                    <h1 className="text-xl font-bold">Voter Dashboard</h1>
+                    <p>Welcome, {voter.name}</p>
+                </div>
+                <button onClick={() => { localStorage.clear(); navigate("/voter/login"); }}
+                    className="bg-red-600 text-white px-4 py-2 rounded">
+                    Logout
+                </button>
+            </header>
+
+            <main className="max-w-5xl mx-auto p-8">
+
+                {/* STATUS DISPLAY */}
+                {votingStatus !== "Started" && (
+                    <div className="bg-white p-10 rounded shadow text-center text-xl">
+                        {votingStatus === "NOT_STARTED" && "🕒 Voting has not started yet"}
+                        {votingStatus === "Ended" && "🛑 Voting has ended"}
+                        {/* RESULT TABLE */}
+                        {votingStatus === "Ended" && results.length > 0 && (
+                            <div className="bg-white p-8 mt-8 rounded shadow">
+                                <h2 className="text-2xl font-bold text-center mb-6">🏆 Election Results</h2>
+
+                                <table className="w-full border">
+                                    <thead className="bg-gray-200">
+                                        <tr>
+                                            <th className="p-3 border">Rank</th>
+                                            <th className="p-3 border">Candidate</th>
+                                            {/* <th className="p-3 border">Position</th> */}
+                                            <th className="p-3 border">Total Votes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {results.map((c, i) => (
+                                            <tr key={c._id} className={i === 0 ? "bg-green-100 font-bold" : ""}>
+                                                <td className="p-3 border text-center">{i + 1}</td>
+                                                <td className="p-3 border">{c.name}</td>
+                                                {/* <td className="p-3 border">{c.position}</td> */}
+                                                <td className="p-3 border text-center">{c.votes}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+
+                                <p className="mt-4 text-center text-green-700 font-semibold">
+                                    🥇 Winner: {results[0].name}
+                                </p>
+                            </div>
+                        )}
+
+                    </div>
+
+                )}
+
+                {/* CIRCLE VOTING UI */}
+                {votingStatus === "Started" && (
+                    <div className="bg-white p-10 rounded shadow">
+                        <h2 className="text-2xl font-bold mb-6 text-center">Cast Your Vote</h2>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
+                            {candidates.map(c => (
+                                <div key={c._id} onClick={() => setSelectedCandidate(c)}
+                                    className="cursor-pointer flex flex-col items-center">
+
+                                    <div className={`w-28 h-28 rounded-full border-4 flex items-center justify-center text-center
+                                        ${selectedCandidate?.nominationId === c.nominationId
+                                            ? "border-blue-600 bg-blue-100"
+                                            : "border-gray-400 hover:border-blue-400"}`}>
+
+                                        <span className="font-bold">{c.name}</span>
+                                    </div>
+
+                                    <p className="mt-2 text-sm text-gray-600">{c.position}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {selectedCandidate && (
+                            <div className="text-center mt-10">
+                                <button
+                                    onClick={submitVote}
+                                    disabled={submitting}
+                                    className="bg-blue-600 text-white px-10 py-3 rounded text-lg">
+                                    {submitting ? "Submitting..." : "Confirm Vote"}
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+            </main>
         </div>
-        <button
-          onClick={() => { localStorage.clear(); navigate("/voter/login"); }}
-          className="bg-red-600 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
-      </div>
-
-      {/* 🗳️ Voting Screen */}
-      {electionStatus === "Started" && (
-        <div className="mt-10 bg-white p-8 shadow rounded">
-          <h2 className="text-2xl font-bold text-center mb-6">Tap Your Candidate</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 justify-items-center">
-            {candidates.map(c => (
-              <div
-                key={c.nominationId}
-                onClick={() => setSelectedCandidate(c)}
-                className={`w-32 h-32 rounded-full flex items-center justify-center text-center cursor-pointer font-semibold border-4 transition
-                  ${selectedCandidate?.nominationId === c.nominationId
-                    ? "bg-green-500 text-white border-green-700 scale-105"
-                    : "bg-gray-200 border-gray-400 hover:scale-105"}`}
-              >
-                {c.name}
-              </div>
-            ))}
-          </div>
-
-          {selectedCandidate && (
-            <div className="mt-8 text-center">
-              <button
-                onClick={handleVote}
-                disabled={submitting}
-                className="bg-blue-600 text-white px-10 py-3 rounded text-lg"
-              >
-                {submitting ? "Submitting..." : "Confirm Vote"}
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* 🕒 Not Started / Ended */}
-      {electionStatus !== "Started" && (
-        <div className="mt-10 bg-white p-10 text-center rounded shadow text-xl">
-          {electionStatus === "Ended" ? "🛑 Voting has ended" : "⏳ Voting has not started yet"}
-        </div>
-      )}
-    </div>
-  );
+    );
 }
