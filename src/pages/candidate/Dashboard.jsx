@@ -12,7 +12,7 @@
 import CandidateLayout from "../../layouts/CandidateLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import NominationForm from "./NominationForm";
+import NominationForm from "./CandidateNominationForm";
 
 export default function Dashboard() {
   const [open, setOpen] = useState(false);

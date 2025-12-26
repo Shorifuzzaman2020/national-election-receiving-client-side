@@ -87,7 +87,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function NominationForm() {
+export default function CandidateNominationForm() {
 
     const [form, setForm] = useState({
         name: "",

@@ -3,9 +3,9 @@ import Home from "../pages/Home"
 import Login from "../pages/auth/Login"
 import Register from "../pages/auth/Register"
 import AdminDashboard from "../pages/admin/Dashboard"
-import CandidateDashboard from "../pages/candidate/Dashboard"
+
 import SubAdminDashboard from "../pages/subadmin/SubAdminDashboard"
-import VoterDashboard from "../pages/voter/Dashboard"
+
 import Dashboard from "../pages/admin/Dashboard"
 import NominationForm from "../pages/admin/NominationForm"
 import CreateSubAdmin from "../pages/admin/CreateSubAdmin"
@@ -17,6 +17,15 @@ import Administration from "../pages/Administration"
 import PaymentSuccess from "../pages/PaymentSuccess"
 import SubAdminLogin from "../pages/subadmin/SubAdminLogin"
 import SubAdminLayout from "../layouts/SubAdminLayout"
+import CandidateLogin from "../pages/candidate/CandidateLogin"
+import CandidateDashboard from "../pages/candidate/CandidateDashboard"
+import AddVoter from "../pages/subadmin/AddVoter"
+import VoterList from "../pages/subadmin/VoterList"
+import VoterLogin from "../pages/voter/VoterLogin"
+import VoterDashboard from "../pages/voter/VoterDashboard"
+import CandidateNominationForm from "../pages/candidate/CandidateNominationForm"
+
+
 
 export default function Router() {
     return (
@@ -27,7 +36,7 @@ export default function Router() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/candidate" element={<CandidateDashboard />} />
             <Route path="/subadmin" element={<SubAdminDashboard />} />
-            <Route path="/voter" element={<VoterDashboard />} />
+            
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/nomination" element={<NominationForm />} />
             <Route path="/admin/create-sub-admin" element={<CreateSubAdmin />} />
@@ -37,8 +46,16 @@ export default function Router() {
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/administration" element={<Administration />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
-            <Route path="/sub-admin-login" element={<SubAdminLogin />}/>
-            <Route path="/subadmin/dashboard" element={<SubAdminDashboard />}/>
+            <Route path="/sub-admin-login" element={<SubAdminLogin />} />
+            <Route path="/subadmin/dashboard" element={<SubAdminDashboard />} />
+            <Route path="/candidate-login" element={<CandidateLogin />} />
+            <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
+            <Route path="/subadmin/add-voter" element={<AddVoter />} />
+            <Route path="/subadmin/voter-list" element={<VoterList />} />
+            <Route path="/voter-login" element={<VoterLogin />} />
+            <Route path="/voter/dashboard" element={<VoterDashboard/>} />
+            <Route path="/candidate-nomination" element={<CandidateNominationForm />} />
+
         </Routes>
     )
 }
