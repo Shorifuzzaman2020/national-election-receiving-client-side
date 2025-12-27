@@ -73,6 +73,7 @@ export default function Router() {
             <Route path="/administration" element={<Administration />} />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/sub-admin-login" element={<SubAdminLogin />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
             {/* ================= ADMIN ================= */}
             <Route path="/admin/dashboard" element={
                 <ProtectedRoute role="admin">
