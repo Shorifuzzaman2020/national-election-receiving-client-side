@@ -79,7 +79,7 @@ export default function NominationForm() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <Link
-            to="/admin"
+            to="/"
             className="border px-5 py-2 rounded-md hover:bg-gray-100"
           >
             Go Home
