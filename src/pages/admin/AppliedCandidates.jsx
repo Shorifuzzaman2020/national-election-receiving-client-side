@@ -10,12 +10,12 @@ const AppliedCandidates = () => {
     }, []);
 
     const loadCandidates = async () => {
-        const res = await axios.get("http://localhost:5000/admin/nominations");
+        const res = await axios.get("https://server-voting-app.vercel.app/admin/nominations");
         setCandidates(res.data);
     };
 
     const updateStatus = async (id, status) => {
-        await axios.patch(`http://localhost:5000/admin/nominations/${id}`, { status });
+        await axios.patch(`https://server-voting-app.vercel.app/admin/nominations/${id}`, { status });
         loadCandidates();
         setSelected(null);
     };

@@ -13,14 +13,14 @@ export default function SubAdminLogin() {
     });
 
     const sendCode = async () => {
-        await axios.post("http://localhost:5000/subadmin/send-code", {
+        await axios.post("https://server-voting-app.vercel.app/subadmin/send-code", {
             phone: form.phone
         });
         alert("Code sent");
     };
 
     const submit = async () => {
-        const res = await axios.post("http://localhost:5000/subadmin/login", form);
+        const res = await axios.post("https://server-voting-app.vercel.app/subadmin/login", form);
 
         if (res.data.success) {
             localStorage.setItem("token", res.data.token);

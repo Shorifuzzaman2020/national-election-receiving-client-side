@@ -16,7 +16,7 @@ export default function AdminLogin() {
 
     const sendCode = async () => {
         try {
-            await axios.post("http://localhost:5000/admin/send-code", {
+            await axios.post("https://server-voting-app.vercel.app/admin/send-code", {
                 email: form.email
             });
             alert("Verification code sent to your email");
@@ -27,7 +27,7 @@ export default function AdminLogin() {
 
     // const submit = async () => {
     //     try {
-    //         const res = await axios.post("http://localhost:5000/admin/verify-code", {
+    //         const res = await axios.post("https://server-voting-app.vercel.app/admin/verify-code", {
     //             email: form.email,
     //             code: form.code
     //         });
@@ -43,7 +43,7 @@ export default function AdminLogin() {
 
     const submit = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/admin/verify-code", {
+            const res = await axios.post("https://server-voting-app.vercel.app/admin/verify-code", {
                 email: form.email,
                 code: form.code
             });

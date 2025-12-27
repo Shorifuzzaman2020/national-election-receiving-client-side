@@ -42,7 +42,7 @@ export default function VoterList() {
     const fetchVoters = async () => {
         try {
             setLoading(true);
-            const res = await axios.get("http://localhost:5000/subadmin/voters");
+            const res = await axios.get("https://server-voting-app.vercel.app/subadmin/voters");
             setVoters(res.data);
             setFilteredVoters(res.data);
         } catch (error) {
@@ -101,7 +101,7 @@ export default function VoterList() {
     // Delete voter
     const handleDelete = async (voterId, voterName) => {
         try {
-            await axios.delete(`http://localhost:5000/subadmin/voters/${voterId}`);
+            await axios.delete(`https://server-voting-app.vercel.app/subadmin/voters/${voterId}`);
             
             // Remove from local state
             const updatedVoters = voters.filter(v => v._id !== voterId);
@@ -153,7 +153,7 @@ export default function VoterList() {
                 return;
             }
 
-            await axios.put(`http://localhost:5000/subadmin/voters/${voterId}`, editForm);
+            await axios.put(`https://server-voting-app.vercel.app/subadmin/voters/${voterId}`, editForm);
             
             // Update local state
             const updatedVoters = voters.map(v => 

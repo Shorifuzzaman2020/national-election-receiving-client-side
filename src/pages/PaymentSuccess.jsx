@@ -6,7 +6,7 @@
 //     useEffect(() => {
 //         const data = JSON.parse(localStorage.getItem("nominationData"));
 
-//         axios.post("http://localhost:5000/nominate", {
+//         axios.post("https://server-voting-app.vercel.app/nominate", {
 //             ...data,
 //             status: "Pending"
 //         });
@@ -35,7 +35,7 @@
 //     useEffect(() => {
 //         const data = JSON.parse(localStorage.getItem("nominationData"));
 
-//         axios.post("http://localhost:5000/nominate", {
+//         axios.post("https://server-voting-app.vercel.app/nominate", {
 //             ...data,
 //             status: "Pending",
 //             payment: "Paid"
@@ -91,7 +91,7 @@ export default function PaymentSuccess() {
                     return;
                 }
 
-                const response = await axios.post("http://localhost:5000/nominate", {
+                const response = await axios.post("https://server-voting-app.vercel.app/nominate", {
                     ...data,
                     status: "Pending",
                     payment: "Paid"

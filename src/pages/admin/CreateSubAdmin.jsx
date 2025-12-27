@@ -31,7 +31,7 @@ export default function CreateSubAdmin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await fetch("http://localhost:5000/api/admin/create-sub-admin", {
+        const res = await fetch("https://server-voting-app.vercel.app/api/admin/create-sub-admin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

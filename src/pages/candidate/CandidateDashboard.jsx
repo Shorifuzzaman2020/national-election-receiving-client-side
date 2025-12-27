@@ -11,7 +11,7 @@ export default function CandidateDashboard() {
 
         if (!token) return navigate("/candidate/login");
 
-        axios.get("http://localhost:5000/candidate/profile", {
+        axios.get("https://server-voting-app.vercel.app/candidate/profile", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => setProfile(res.data))

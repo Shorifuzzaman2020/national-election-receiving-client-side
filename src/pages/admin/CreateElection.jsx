@@ -25,7 +25,7 @@
 
 //         setLoading(true);
 //         try {
-//             const response = await axios.post("http://localhost:5000/api/admin/create-election", formData);
+//             const response = await axios.post("https://server-voting-app.vercel.app/api/admin/create-election", formData);
             
 //             if (response.data.success) {
 //                 toast.success("Election created successfully!");
@@ -214,12 +214,12 @@ export default function CreateElection() {
     const navigate = useNavigate();
 
     const startVoting = async () => {
-        await axios.post("http://localhost:5000/admin/start-voting");
+        await axios.post("https://server-voting-app.vercel.app/admin/start-voting");
         alert("Voting Started");
     };
 
     const endVoting = async () => {
-        await axios.post("http://localhost:5000/admin/end-voting");
+        await axios.post("https://server-voting-app.vercel.app/admin/end-voting");
         alert("Voting Ended");
     };
 

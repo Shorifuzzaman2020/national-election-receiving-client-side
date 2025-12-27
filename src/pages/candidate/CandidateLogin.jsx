@@ -20,7 +20,7 @@
 
 //         try {
 //             const response = await axios.post(
-//                 "http://localhost:5000/api/candidate/login",
+//                 "https://server-voting-app.vercel.app/api/candidate/login",
 //                 form
 //             );
 
@@ -149,7 +149,7 @@
 
 //     const submit = async () => {
 //         try {
-//             const res = await axios.post("http://localhost:5000/candidate/login", { email });
+//             const res = await axios.post("https://server-voting-app.vercel.app/candidate/login", { email });
 
 //             if (res.data.success) {
 //                 localStorage.setItem("token", res.data.token);
@@ -195,7 +195,7 @@ export default function CandidateLogin() {
 
     const sendCode = async () => {
         try {
-            await axios.post("http://localhost:5000/candidate/send-code", { email });
+            await axios.post("https://server-voting-app.vercel.app/candidate/send-code", { email });
             alert("OTP sent to your email");
         } catch (err) {
             alert(err.response?.data?.error || "Not a candidate");
@@ -204,7 +204,7 @@ export default function CandidateLogin() {
 
     const submit = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/candidate/login", { email, code });
+            const res = await axios.post("https://server-voting-app.vercel.app/candidate/login", { email, code });
 
             if (res.data.success) {
                 localStorage.setItem("token", res.data.token);

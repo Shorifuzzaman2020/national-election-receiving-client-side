@@ -73,7 +73,7 @@ export default function Home() {
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/election/status");
+                const res = await axios.get("https://server-voting-app.vercel.app/election/status");
                 setNominationOpen(res.data.nominationOpen);
             } catch (err) {
                 console.error("Failed to fetch election status");

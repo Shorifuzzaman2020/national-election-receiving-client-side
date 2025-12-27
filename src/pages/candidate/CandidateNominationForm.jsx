@@ -10,7 +10,7 @@
 //     });
 
 //     const submit = async () => {
-//         await axios.post("http://localhost:5000/nominate", {
+//         await axios.post("https://server-voting-app.vercel.app/nominate", {
 //             ...form,
 //             status: "Pending"
 //         });
@@ -108,7 +108,7 @@ export default function CandidateNominationForm() {
             setLoading(true);
 
             // Step 1: Create payment session
-            const res = await axios.post("http://localhost:5000/payment/initiate", {
+            const res = await axios.post("https://server-voting-app.vercel.app/payment/initiate", {
                 name: form.name,
                 email: form.email
             });

@@ -58,12 +58,12 @@ import axios from "axios";
 export default function NominationForm() {
 
   const publish = async () => {
-    await axios.post("http://localhost:5000/admin/publish");
+    await axios.post("https://server-voting-app.vercel.app/admin/publish");
     alert("Nomination Form Published");
   };
 
   const unpublish = async () => {
-    await axios.post("http://localhost:5000/admin/unpublish");
+    await axios.post("https://server-voting-app.vercel.app/admin/unpublish");
     alert("Nomination Form Closed");
   };
   const logout = () => {

@@ -132,7 +132,7 @@ export default function AddVoter() {
         age: age // Send age to backend for verification
       };
 
-      await axios.post("http://localhost:5000/subadmin/voters", formattedForm);
+      await axios.post("https://server-voting-app.vercel.app/subadmin/voters", formattedForm);
       
       alert("Voter Added Successfully!");
       

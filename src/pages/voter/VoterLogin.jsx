@@ -22,7 +22,7 @@ export default function VoterLogin() {
 
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/api/voter/send-code", {
+            const response = await axios.post("https://server-voting-app.vercel.app/api/voter/send-code", {
                 voterId
             });
 
@@ -48,7 +48,7 @@ export default function VoterLogin() {
 
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/api/voter/login", {
+            const response = await axios.post("https://server-voting-app.vercel.app/api/voter/login", {
                 voterId,
                 code
             });
@@ -80,7 +80,7 @@ export default function VoterLogin() {
 
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/api/voter/send-code", {
+            const response = await axios.post("https://server-voting-app.vercel.app/api/voter/send-code", {
                 voterId
             });
 

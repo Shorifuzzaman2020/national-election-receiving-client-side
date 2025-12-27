@@ -29,7 +29,7 @@
 //             setLoading(true);
 
 //             // Fetch voter profile
-//             const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+//             const profileRes = await axios.get("https://server-voting-app.vercel.app/api/voter/profile", {
 //                 headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
 //             });
 
@@ -41,7 +41,7 @@
 
 //                 // If voting is open and voter hasn't voted, fetch candidates
 //                 if (votingStatus.votingOpen && !votingStatus.hasVoted) {
-//                     const candidatesRes = await axios.get("http://localhost:5000/api/voter/candidates");
+//                     const candidatesRes = await axios.get("https://server-voting-app.vercel.app/api/voter/candidates");
 //                     if (candidatesRes.data.success) {
 //                         setCandidates(candidatesRes.data.candidates);
 //                     }
@@ -49,7 +49,7 @@
 
 //                 // If election is finished, fetch results
 //                 if (votingStatus.electionFinished) {
-//                     const resultsRes = await axios.get("http://localhost:5000/api/voter/results");
+//                     const resultsRes = await axios.get("https://server-voting-app.vercel.app/api/voter/results");
 //                     if (resultsRes.data.success) {
 //                         setResults(resultsRes.data);
 //                     }
@@ -80,7 +80,7 @@
 
 //         setVoting(true);
 //         try {
-//             const response = await axios.post("http://localhost:5000/api/voter/vote", {
+//             const response = await axios.post("https://server-voting-app.vercel.app/api/voter/vote", {
 //                 voterId: voter.voterId,
 //                 candidateId: selectedCandidate.id
 //             });
@@ -428,7 +428,7 @@
 //             const token = localStorage.getItem("voterToken");
 
 //             // 1. Fetch election status directly from elections collection
-//             const statusRes = await axios.get("http://localhost:5000/api/election/status");
+//             const statusRes = await axios.get("https://server-voting-app.vercel.app/api/election/status");
 
 //             if (statusRes.data.success) {
 //                 const electionData = statusRes.data.election || {};
@@ -438,7 +438,7 @@
 //                 });
 
 //                 // 2. Fetch voter profile
-//                 const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+//                 const profileRes = await axios.get("https://server-voting-app.vercel.app/api/voter/profile", {
 //                     headers: { Authorization: `Bearer ${token}` }
 //                 });
 
@@ -448,7 +448,7 @@
 
 //                     // 3. If voting is active (Started), fetch approved candidates
 //                     if (electionData.votingStatus === "Started" && !hasVoted) {
-//                         const candidatesRes = await axios.get("http://localhost:5000/api/voter/candidates");
+//                         const candidatesRes = await axios.get("https://server-voting-app.vercel.app/api/voter/candidates");
 //                         if (candidatesRes.data.success) {
 //                             setCandidates(candidatesRes.data.candidates || []);
 //                         }
@@ -456,7 +456,7 @@
 
 //                     // 4. If voting has ended (Ended), fetch results
 //                     if (electionData.votingStatus === "Ended") {
-//                         const resultsRes = await axios.get("http://localhost:5000/api/voter/results", {
+//                         const resultsRes = await axios.get("https://server-voting-app.vercel.app/api/voter/results", {
 //                             headers: { Authorization: `Bearer ${token}` }
 //                         });
 //                         if (resultsRes.data.success) {
@@ -493,7 +493,7 @@
 //         try {
 //             const token = localStorage.getItem("voterToken");
 //             const response = await axios.post(
-//                 "http://localhost:5000/api/voter/vote",
+//                 "https://server-voting-app.vercel.app/api/voter/vote",
 //                 {
 //                     voterId: voter.voterId,
 //                     nominationId: selectedCandidate.nominationId // Use nominationId from candidates data
@@ -977,17 +977,17 @@
 //         try {
 //             setLoading(true);
 
-//             const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+//             const profileRes = await axios.get("https://server-voting-app.vercel.app/api/voter/profile", {
 //                 headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
 //             });
 
 //             setVoter(profileRes.data.voter);
 
-//             const statusRes = await axios.get("http://localhost:5000/election/status");
+//             const statusRes = await axios.get("https://server-voting-app.vercel.app/election/status");
 //             setVotingStatus(statusRes.data.votingStatus);
 
 //             if (statusRes.data.votingStatus === "Started") {
-//                 const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+//                 const nominationsRes = await axios.get("https://server-voting-app.vercel.app/admin/nominations");
 //                 const approved = nominationsRes.data.filter(n => n.status === "Approved");
 //                 setCandidates(approved);
 //             }
@@ -1008,7 +1008,7 @@
 //         try {
 //             setSubmitting(true);
 
-//             await axios.post("http://localhost:5000/api/voter/vote", {
+//             await axios.post("https://server-voting-app.vercel.app/api/voter/vote", {
 //                 voterId: voter.voterId,
 //                 candidateId: selectedCandidate._id
 //             });
@@ -1122,17 +1122,17 @@ export default function VoterDashboard() {
     //     try {
     //         setLoading(true);
 
-    //         const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+    //         const profileRes = await axios.get("https://server-voting-app.vercel.app/api/voter/profile", {
     //             headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
     //         });
 
     //         setVoter(profileRes.data.voter);
 
-    //         const statusRes = await axios.get("http://localhost:5000/election/status");
+    //         const statusRes = await axios.get("https://server-voting-app.vercel.app/election/status");
     //         setVotingStatus(statusRes.data.votingStatus);
 
     //         if (statusRes.data.votingStatus === "Started") {
-    //             const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+    //             const nominationsRes = await axios.get("https://server-voting-app.vercel.app/admin/nominations");
     //             const approved = nominationsRes.data.filter(n => n.status === "Approved");
     //             setCandidates(approved);
     //         }
@@ -1149,24 +1149,24 @@ export default function VoterDashboard() {
         try {
             setLoading(true);
 
-            const profileRes = await axios.get("http://localhost:5000/api/voter/profile", {
+            const profileRes = await axios.get("https://server-voting-app.vercel.app/api/voter/profile", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("voterToken")}` }
             });
 
             setVoter(profileRes.data.voter);
 
-            const statusRes = await axios.get("http://localhost:5000/election/status");
+            const statusRes = await axios.get("https://server-voting-app.vercel.app/election/status");
             const status = statusRes.data.votingStatus;
             setVotingStatus(status);
 
             if (status === "Started") {
-                const nominationsRes = await axios.get("http://localhost:5000/admin/nominations");
+                const nominationsRes = await axios.get("https://server-voting-app.vercel.app/admin/nominations");
                 const approved = nominationsRes.data.filter(n => n.status === "Approved");
                 setCandidates(approved);
             }
 
             if (status === "Ended") {
-                const resultRes = await axios.get("http://localhost:5000/admin/nominations");
+                const resultRes = await axios.get("https://server-voting-app.vercel.app/admin/nominations");
                 const approved = resultRes.data.filter(n => n.status === "Approved");
                 const sorted = approved.sort((a, b) => b.votes - a.votes);
                 setResults(sorted);
@@ -1188,7 +1188,7 @@ export default function VoterDashboard() {
         try {
             setSubmitting(true);
 
-            await axios.patch("http://localhost:5000/api/vote", {
+            await axios.patch("https://server-voting-app.vercel.app/api/vote", {
                 voterId: voter.voterId,
                 nominationId: selectedCandidate.nominationId
             });

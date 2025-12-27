@@ -18,7 +18,7 @@ export default function Dashboard() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/election/status")
+    axios.get("https://server-voting-app.vercel.app/election/status")
       .then(res => setOpen(res.data.nominationOpen));
   }, []);
 
