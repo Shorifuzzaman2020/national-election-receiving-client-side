@@ -100,7 +100,6 @@ export default function NominationForm() {
           >
             Publish Form
           </button>
-
           <button
             onClick={unpublish}
             className="px-10 py-4 text-lg border-2 border-black rounded-xl hover:bg-black hover:text-white transition"

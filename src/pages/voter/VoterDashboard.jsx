@@ -1265,7 +1265,7 @@ export default function VoterDashboard() {
                 )}
 
                 {/* CIRCLE VOTING UI */}
-                {votingStatus === "Started" && (
+                {/* {votingStatus === "Started" && (
                     <div className="bg-white p-10 rounded shadow">
                         <h2 className="text-2xl font-bold mb-6 text-center">Cast Your Vote</h2>
 
@@ -1293,6 +1293,46 @@ export default function VoterDashboard() {
                                     onClick={submitVote}
                                     disabled={submitting}
                                     className="bg-blue-600 text-white px-10 py-3 rounded text-lg">
+                                    {submitting ? "Submitting..." : "Confirm Vote"}
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )} */}
+                {votingStatus === "Started" && voter && (
+                    <div className="bg-white p-10 rounded shadow">
+                        <h2 className="text-2xl font-bold mb-6 text-center">Cast Your Vote</h2>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
+                            {candidates
+                                .filter(c => c.address === voter.district)   // 🔐 district filter here
+                                .map(c => (
+                                    <div
+                                        key={c._id}
+                                        onClick={() => setSelectedCandidate(c)}
+                                        className="cursor-pointer flex flex-col items-center"
+                                    >
+                                        <div
+                                            className={`w-28 h-28 rounded-full border-4 flex items-center justify-center text-center
+                            ${selectedCandidate?.nominationId === c.nominationId
+                                                    ? "border-blue-600 bg-blue-100"
+                                                    : "border-gray-400 hover:border-blue-400"}`}
+                                        >
+                                            <span className="font-bold">{c.name}</span>
+                                        </div>
+
+                                        <p className="mt-2 text-sm text-gray-600">{c.position}</p>
+                                    </div>
+                                ))}
+                        </div>
+
+                        {selectedCandidate && (
+                            <div className="text-center mt-10">
+                                <button
+                                    onClick={submitVote}
+                                    disabled={submitting}
+                                    className="bg-blue-600 text-white px-10 py-3 rounded text-lg"
+                                >
                                     {submitting ? "Submitting..." : "Confirm Vote"}
                                 </button>
                             </div>
