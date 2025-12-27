@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 
+
+
+
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const logout = () => {
+  
+  localStorage.removeItem("token");
+  navigate("/");
+};
   return (
     <AdminLayout>
       <div className="min-h-[80vh] flex flex-col items-center justify-start pt-10">
@@ -17,7 +26,7 @@ export default function Dashboard() {
 
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
 
-          <button className="border px-5 py-2 rounded-md font-medium hover:bg-gray-100">
+          <button onClick={logout} className="border px-5 py-2 rounded-md font-medium hover:bg-gray-100">
             Log Out
           </button>
         </div>

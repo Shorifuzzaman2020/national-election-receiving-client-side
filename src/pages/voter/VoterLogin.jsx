@@ -58,7 +58,10 @@ export default function VoterLogin() {
                 localStorage.setItem("voterToken", response.data.token);
                 localStorage.setItem("voterInfo", JSON.stringify(response.data.voter));
                 localStorage.setItem("electionInfo", JSON.stringify(response.data.election));
-                
+                //update for protected route
+                localStorage.setItem("voterToken", response.data.token);
+                localStorage.setItem("role", "voter");
+                //end for test purpose
                 toast.success("Login successful!");
                 navigate("/voter/dashboard");
             }
@@ -114,7 +117,7 @@ export default function VoterLogin() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
             <ToastContainer position="top-right" autoClose={3000} />
-            
+
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-md w-full">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
@@ -182,7 +185,7 @@ export default function VoterLogin() {
                                         </span>
                                     )}
                                 </div>
-                                
+
                                 <input
                                     type="text"
                                     value={code}
@@ -192,7 +195,7 @@ export default function VoterLogin() {
                                     maxLength={6}
                                     disabled={loading}
                                 />
-                                
+
                                 <p className="text-sm text-gray-500 mt-2">
                                     Enter the 6-digit code sent to {emailMasked}
                                 </p>
@@ -237,7 +240,7 @@ export default function VoterLogin() {
                                 >
                                     ← Use different Voter ID
                                 </button>
-                                
+
                                 <Link to="/" className="text-blue-600 hover:text-blue-800 text-sm">
                                     Back to Home
                                 </Link>

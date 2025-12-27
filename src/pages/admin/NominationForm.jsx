@@ -52,7 +52,7 @@
 
 
 import AdminLayout from "../../layouts/AdminLayout";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
 export default function NominationForm() {
@@ -66,6 +66,11 @@ export default function NominationForm() {
     await axios.post("http://localhost:5000/admin/unpublish");
     alert("Nomination Form Closed");
   };
+  const logout = () => {
+        localStorage.removeItem("token");
+        Navigate("/admin-login");
+    };
+
 
   return (
     <AdminLayout>
@@ -82,7 +87,7 @@ export default function NominationForm() {
 
           <h1 className="text-2xl font-bold">Nomination Form</h1>
 
-          <button className="border px-5 py-2 rounded-md hover:bg-gray-100">
+          <button onClick={logout} className="border px-5 py-2 rounded-md hover:bg-gray-100">
             Log Out
           </button>
         </div>

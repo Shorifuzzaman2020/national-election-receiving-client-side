@@ -27,10 +27,10 @@
 //             if (response.data.success) {
 //                 // Save token
 //                 localStorage.setItem("candidateToken", response.data.token);
-                
+
 //                 // Save candidate info
 //                 localStorage.setItem("candidateInfo", JSON.stringify(response.data.candidate));
-                
+
 //                 // Redirect to dashboard
 //                 navigate("/candidate/dashboard");
 //             }
@@ -45,7 +45,7 @@
 //     return (
 //         <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100">
 //             <div className="bg-white p-8 w-full max-w-md space-y-6 rounded-2xl shadow-2xl">
-                
+
 //                 <div className="text-center">
 //                     <h2 className="text-3xl font-bold text-gray-800">Candidate Login</h2>
 //                     <p className="text-gray-600 mt-2">Access your nomination dashboard</p>
@@ -209,6 +209,10 @@ export default function CandidateLogin() {
             if (res.data.success) {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("nominationId", res.data.nominationId);
+                //update for protected route
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("role", "candidate");
+                //end for test purpose
                 navigate("/candidate/dashboard");
             }
         } catch (err) {

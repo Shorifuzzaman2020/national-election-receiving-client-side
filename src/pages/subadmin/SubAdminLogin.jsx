@@ -24,6 +24,10 @@ export default function SubAdminLogin() {
 
         if (res.data.success) {
             localStorage.setItem("token", res.data.token);
+            ///update for protected route
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("role", "subadmin");
+            //end for test purpose
             navigate("/subadmin/dashboard");
         }
     };

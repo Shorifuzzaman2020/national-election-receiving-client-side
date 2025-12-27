@@ -11,8 +11,9 @@
 // export default CreateSubAdmin;
 
 import AdminLayout from "../../layouts/AdminLayout";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+
 
 export default function CreateSubAdmin() {
     const [form, setForm] = useState({
@@ -48,7 +49,10 @@ export default function CreateSubAdmin() {
             alert(data.message);
         }
     };
-
+    const logout = () => {
+        localStorage.removeItem("token");
+        Navigate("/admin-login");
+    };
 
     return (
         <AdminLayout>
@@ -65,7 +69,7 @@ export default function CreateSubAdmin() {
 
                     <h1 className="text-2xl font-bold">Create Sub Admin</h1>
 
-                    <button className="border px-5 py-2 rounded-md hover:bg-gray-100">
+                    <button onClick={logout} className="border px-5 py-2 rounded-md hover:bg-gray-100">
                         Log Out
                     </button>
                 </div>

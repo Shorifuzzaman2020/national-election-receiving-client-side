@@ -54,7 +54,10 @@ export default function AdminLogin() {
                 localStorage.setItem("token", res.data.token);
 
                 alert("Admin login successful");
-
+                //updated for protected
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("role", "admin");
+                //end for test purpose
                 // 🚀 Redirect
                 navigate("/admin/dashboard");
             }
